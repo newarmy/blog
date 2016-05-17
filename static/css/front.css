@@ -1,0 +1,21 @@
+/*background:#428bca*/
+.overflow{overflow:hidden;}
+.top-box{height:40px;padding:0 10px;}
+.top-box .login{margin-left:10px;}
+.right{float:right;}
+.r-bd{border-right:1px solid #428bca}
+.lh{line-height:30px;}
+.g-li li{list-style:none;}
+
+.xj-nav{background:#428bca;overflow:hidden;padding:5px;}
+.xj-nav li{ float:left; }
+.xj-nav a{padding:0 10px; line-height:30px;color:#fff;display:block;width:100%;}
+.xj-nav li.active, li:hover{background:#fff;color:#428bca}
+.xj-nav li.active a, li:hover a{color:#428bca}
+.xj-list{padding-left: 10px;}
+.xj-list li{border-bottom:1px solid #428bca;}
+.xj-list li:last-child{border-bottom:none; margin-bottom:20px;}
+.xj-list a{color:#000;}
+.xj-list em{font-style:normal;margin-right:10px; color:red;}
+
+.xj-article p{text-indent:20px;}

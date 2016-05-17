@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>后台</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<link href="css/admin.css" rel="stylesheet">
+  </head>
+  <body>
+	<div class="container ">
+		<div class="row g c-color">
+			<div class="col-md-10 "><h1>后台管理</h1></div>
+			<div class = 'col-md-2 '>				
+					<a  href="#" class="li">登录</a>
+					<a href="#" class="li">注册</a>
+			</div>
+		</div>
+		<div class="row g border">
+			<div class="col-md-2 ">
+				<ul class="list-unstyled padding-top">
+					<li><a class="line-height" href="#">文章管理</a></li>
+					<li><a class="line-height" href="#">分类管理</a></li>
+					<li><a class="line-height" href="#">标签管理</a></li>
+					<li><a class="line-height" href="#">用户管理</a></li>
+				</ul>
+			</div>
+			<div class="col-md-10 border-right">
+				<table class="table table-striped">
+			  <thead>
+				<tr>
+				  <th>#</th>
+				  <th>文章标题</th>
+				  <th>文章操作</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  <th scope="row">1</th>
+				  <td>Otto</td>
+				  <td>
+					<a  href="#" >更新</a> |
+					<a href="#" >删除</a>
+				  </td>
+				</tr>
+				<tr>
+				  <th scope="row">2</th>
+				  <td>Jacob</td>
+				   <td>
+					<a  href="#" >更新</a> |
+					<a href="#" >删除</a>
+				  </td>
+				</tr>
+				<tr>
+				  <th scope="row">3</th>
+				  <td>Larry</td>
+				   <td>
+					<a  href="#" >更新</a> |
+					<a href="#" >删除</a>
+				  </td>
+				</tr>
+			  </tbody>
+    </table>
+			</div>
+		</div>
+		
+		<div class="row g c-color">
+			<div class ="col-md-12  m" >
+				@copyright  2016
+			</div>
+		</div>
+	</div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+	<script>
+		/*!
+ * IE10 viewport hack for Surface/desktop Windows 8 bug
+ * Copyright 2014 Twitter, Inc.
+ * Licensed under the Creative Commons Attribution 3.0 Unported License. For
+ * details, see http://creativecommons.org/licenses/by/3.0/.
+ */
+
+// See the Getting Started docs for more information:
+// http://getbootstrap.com/getting-started/#support-ie10-width
+
+(function () {
+  'use strict';
+  if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+    var msViewportStyle = document.createElement('style')
+    msViewportStyle.appendChild(
+      document.createTextNode(
+        '@-ms-viewport{width:auto!important}'
+      )
+    )
+    document.querySelector('head').appendChild(msViewportStyle)
+  }
+})();
+	</script>
+  </body>
+</html>

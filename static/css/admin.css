@@ -1,0 +1,17 @@
+ ul{list-style: none;}	
+	.li {float:right; margin-right:15px;color:#fff;margin-top:30px;}
+	.left {float:left;}
+	.cur{color:red;}
+	.g {margin-top: 20px;}
+	.h {height:100px;}
+	.m {text-align:center;padding:10px;}
+	.border {border: 1px solid #428bca;}
+	.border-right{border-left:1px solid #428bca;}
+	.padding-top{padding-top:15px;}
+	.line-height{line-height:30px;}
+	.c-color{background:#428bca;color:#fff;}
+	@media (max-width: 768px){
+		.li{ float:none; margin-right:15px;color:#fff;}
+		.left {float:none;}
+	}
+	.form-submit{margin:15px 0;}
