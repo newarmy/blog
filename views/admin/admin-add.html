@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>后台</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<link href="css/admin.css" rel="stylesheet">
+  </head>
+  <body>
+	<div class="container ">
+		<div class="row g c-color">
+			<div class="col-md-10 "><h1>后台管理</h1></div>
+			<div class = 'col-md-2 '>				
+					<a  href="#" class="li">登录</a>
+					<a href="#" class="li">注册</a>
+			</div>
+		</div>
+		<div class="row g border">
+			<div class="col-md-2 ">
+				<ul class="list-unstyled padding-top">
+					<li><a class="line-height cur" href="#">文章管理</a></li>
+					<li><a class="line-height" href="#">分类管理</a></li>
+					<li><a class="line-height" href="#">标签管理</a></li>
+					<li><a class="line-height" href="#">用户管理</a></li>
+				</ul>
+			</div>
+			<div class="col-md-10 border-right padding-top">
+				<form >
+				  <div class="form-group">
+					<label for="title">文章标题</label>
+					<input type="text" name="title" class="form-control" id="title" placeholder="文章标题">
+				  </div>
+				  <div class="form-group">
+					<label for="content">文章内容</label>
+					<textarea name="content" id="content" class="form-control"> </textarea>
+				  </div>
+				  <div class="form-group">
+					<label for="tag">文章标签</label>
+					<select class="form-control" name="tag" id="tag">
+					  <option>1</option>
+					  <option>2</option>
+					  <option>3</option>
+					  <option>4</option>
+					  <option>5</option>
+					</select>
+				  </div>
+				  <div class="form-group">
+					<label for="classify" >文章分类</label>
+					<select class="form-control" name="classify" id="classify">
+					  <option>1</option>
+					  <option>2</option>
+					  <option>3</option>
+					  <option>4</option>
+					  <option>5</option>
+					</select>
+				  </div>
+				  <div class="form-group">
+					<label for="keywords">当前页面关键字(seo)</label>
+					<input type="text" class="form-control" name="keywords" id="keywords" placeholder="文章标题">
+				  </div>
+				  <div class="form-group">
+					<label for="desc">当前页面meta描述(seo)</label>
+					<input type="text" class="form-control" name="desc" id="desc" placeholder="文章标题">
+				  </div>
+				  <div class="form-group">
+					<label for="pageTitle">当前页面title名称(seo)</label>
+					<input type="text" class="form-control" name="pageTitle" id="pageTitle" placeholder="文章标题">
+				  </div>
+				  <div class="form-group">
+					<label style="display:block">是否生成静态文件</label>
+					<label class="radio-inline">
+					  <input type="radio" name="isStatic" id="isStatic1" value="0"> 生成静态文件
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="isStatic" id="isStatic2" value="1" checked> 不生成静态文件
+					</label>
+				  </div>
+				  <div class="form-group">
+					<label for="filename">静态文章文件名称</label>
+					<input type="text" class="form-control" name="filename" id="filename" placeholder="文章标题">
+				  </div>
+				  <div class="form-group">
+					<label style="display:block">文章是否被推荐</label>
+					<label class="radio-inline">
+					  <input type="radio" name="recommend" id="isStatic1" value="1"> 推荐 
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="recommend" id="isStatic2" value="0" checked> 不推荐 
+					</label>
+				  </div>
+				  <button type="submit" class="btn btn-default form-submit">创建用户</button>
+				</form>
+			</div>
+		</div>
+		 
+		<div class="row g c-color">
+			<div class ="col-md-12  m" >
+				@copyright  2016
+			</div>
+		</div>
+	</div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+	<script>
+		/*!
+ * IE10 viewport hack for Surface/desktop Windows 8 bug
+ * Copyright 2014 Twitter, Inc.
+ * Licensed under the Creative Commons Attribution 3.0 Unported License. For
+ * details, see http://creativecommons.org/licenses/by/3.0/.
+ */
+
+// See the Getting Started docs for more information:
+// http://getbootstrap.com/getting-started/#support-ie10-width
+
+(function () {
+  'use strict';
+  if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+    var msViewportStyle = document.createElement('style')
+    msViewportStyle.appendChild(
+      document.createTextNode(
+        '@-ms-viewport{width:auto!important}'
+      )
+    )
+    document.querySelector('head').appendChild(msViewportStyle)
+  }
+})();
+	</script>
+  </body>
+</html>
