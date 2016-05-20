@@ -7,15 +7,6 @@ class Person extends CI_Model {
         parent::__construct();
     }
     function add($data) {
-		$this->db->select('name');
-		$this->db->where('name',$data['name']);
-		$query = $this->db->get('person');
-		
-		if($query->num_rows() == 1){
-			$res['code'] = 1;
-			$res['msg'] = "该用户名已经存在";
-			return $res;
-		}
 		$this->db->insert('person', $data); 
 		if($this->db->affected_rows() == 1){
 			$res['code'] = 0;
@@ -25,6 +16,17 @@ class Person extends CI_Model {
 			$res['code'] = 1;
 			$res['msg'] = "存储失败";
 			return $res;
+		}
+	}
+	public function have($name) {
+		$this->db->select('name');
+		$this->db->where('name', $name);
+		$query = $this->db->get('person');
+		
+		if($query->num_rows() == 1){
+			return false;
+		} else {
+			return true;
 		}
 	}
     function loginIn(){

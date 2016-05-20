@@ -22,23 +22,33 @@
 		<div class="row g c-color">
 			<div class="col-md-10 "><h1>后台管理</h1></div>
 		</div>
+		
+		<div style="color:red">
+				<?php echo validation_errors() ?>
+			</div>
+		
 		<div class="row g border padding-top">
-			<form class="form-horizontal" action="<?=base_url().'index.php/Reg/reg'?>" method="post">
+			
+			  <?php
+				$attributes = array('class'=> 'form-horizontal');
+				echo form_open('Reg/reg', $attributes) 
+			  ?>
 			  <div class="form-group">
 				<label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
 				<div class="col-sm-10">
-				  <input type="text" class="form-control" name="name" id="inputEmail3" placeholder="用户名">
+				  <input type="text" class="form-control" value="<?= set_value('name')?>" name="name" id="inputEmail3" placeholder="用户名">
+				  
 				</div>
 			  </div>
 			  <div class="form-group">
 				<label for="inputPassword3" class="col-sm-2 control-label">密码</label>
 				<div class="col-sm-10">
-				  <input type="password" class="form-control" name="password" id="inputPassword3" placeholder="密码">
+				  <input type="password" class="form-control" value="<?= set_value('password')?>" name="password" id="inputPassword3" placeholder="密码">
 				</div>
 			  </div>
 			  <div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-				  <button type="submit" class="btn btn-default">登录</button>
+				  <button type="submit" class="btn btn-default">注册</button>
 				</div>
 			  </div>
 			</form>

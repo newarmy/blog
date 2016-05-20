@@ -7,7 +7,8 @@ class Reg extends CI_Controller {
 		parent::__construct();
 		$this->load->database();
 		$this->load->helper('url');
-		//$this->load->library('input');
+		$this->load->helper('form');
+		$this->load->library('form_validation');
 		$this->load->model('person');
 	}
 	public function index()
@@ -18,20 +19,48 @@ class Reg extends CI_Controller {
 	public function reg() {
 		$n = $this->input->post('name');
 		$p = $this->input->post('password');
-		if(empty($n) ||  empty($p)) {
-			$res['reason'] = '名字或密码为空';
-			$this->load->view('admin/reg', $res);
-			return;
+		//全局的修改定界符 
+		$this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
+		//验证规则
+		$this->form_validation->set_rules('name', '用户名', 'required|min_length[5]|max_length[20]|callback_ishave', 
+		array('required' => '用户名不能为空', 
+		'min_length' => '用户名应大于5个字符',
+		'max_length' => '用户名应小于20个字符')
+		);
+		
+		
+		//验证规则
+		$this->form_validation->set_rules('password', '密码', 'required|min_length[5]|max_length[20]', 
+		array('required' => '密码不能为空', 
+		'min_length' => '密码应大于3个字符',
+		'max_length' => '密码应小于20个字符')
+		);
+		
+		//验证方法
+		if($this->form_validation->run() == FALSE) {//验证失败
+			$this->load->view('admin/reg');
+		} else {//验证成功
+			$arr['name'] = $n;
+			$arr['pwd'] = $p;
+			$arr['level'] = 3;
+			$response = $this->person->add($arr);
+			if($response['code'] === 0) {
+				$loginUrl = site_url('/login/index');
+				header("location:".$loginUrl );
+			} else {
+				$this->load->view('admin/reg', $response);
+			}	
 		}
-		$arr['name'] = $n;
-		$arr['pwd'] = $p;
-		$arr['level'] = 3;
-		$response = $this->person->add($arr);
-		if($response['code'] === 0) {
-			$loginUrl = site_url('/login/index');
-			header("location:".$loginUrl );
+		
+	}
+	//自定义规则  规则名字为：callback_ishave
+	public function ishave($name){
+		$response = $this->person->have($name);
+		if($response) {
+			return true;
 		} else {
-			$this->load->view('admin/reg', $response);
+			$this->form_validation->set_message('ishave', '用户名已经存在');
+			return false;
 		}
 	}
 }
