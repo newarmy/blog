@@ -31,7 +31,7 @@
 			
 			  <?php
 				$attributes = array('class'=> 'form-horizontal');
-				echo form_open('Reg/reg', $attributes) 
+				echo form_open('reg/reg', $attributes) 
 			  ?>
 			  <div class="form-group">
 				<label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
@@ -63,7 +63,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<?=base_url().'js/bootstrap.min.js'?>"></script>
+    <script src="<?=base_url().'static/js/bootstrap.min.js'?>"></script>
 	<script>
 		/*!
  * IE10 viewport hack for Surface/desktop Windows 8 bug

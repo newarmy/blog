@@ -6,6 +6,7 @@ class Person extends CI_Model {
     {
         parent::__construct();
     }
+	//添加新用户
     function add($data) {
 		$this->db->insert('person', $data); 
 		if($this->db->affected_rows() == 1){
@@ -18,6 +19,7 @@ class Person extends CI_Model {
 			return $res;
 		}
 	}
+	//查询有没有用户
 	public function have($name) {
 		$this->db->select('name');
 		$this->db->where('name', $name);
@@ -29,26 +31,28 @@ class Person extends CI_Model {
 			return true;
 		}
 	}
-    function loginIn(){
-		$name = $_POST['name'];
-		$pwd = $_POST['pwd'];
-		if(empty($name)){
-			return 2;
-		}
-		if(empty($pwd)){
-			return 1;
-		}
-		$sql = 'SELECT name, pwd, level FROM person WHERE name = "'.addslashes($name).'"';
+	//登录
+    function loginIn($data){
+		
+		$sql = 'SELECT name, pwd, level FROM person WHERE name = "'.$data['name'].'"';
 		$res = $this->db->query($sql);
-		if($res->num_rows() >0){
+		
+		if($res->num_rows() > 0){
 			$r = $res->row_array();
-			if($pwd == $r['pwd']){
-				return $r;
+			if($data['pwd'] == $r['pwd']){
+				$res1['code'] = 0;
+				$res1['name'] = $r['name'];
+				$res1['pwd'] = $r['pwd'];
+				return $res1;
 			}else {
-				return 1;
+				$res1['code'] = 1;
+				$res1['msg'] = "登录失败";
+				return $res;
 			}
 		} else {
-			return 2;
+			$res1['code'] = 1;
+			$res1['msg'] = "登录失败";
+			return $res;
 		}
 	}
 	

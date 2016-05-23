@@ -20,20 +20,34 @@
   <body>
 	<div class="container ">
 		<div class="row g c-color">
-			<div class="col-md-10 "><h1>后台管理</h1></div>
+			<div class="col-md-10 "><h1>后台管理-登录</h1></div>
 		</div>
+		<?php 
+		if(!empty($response)){
+			$msg = $response['msg'];
+			$string =<<<EOF
+			<div style="color:#f00"> {$msg}</div>
+EOF;
+			echo $string;
+		}
+	?>
 		<div class="row g border padding-top">
-			<form class="form-horizontal">
+			<?php 
+				$attrs = array('class' => 'form-horizontal');
+				echo form_open('login/loginIn', $attrs);
+			?>
 			  <div class="form-group">
 				<label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
 				<div class="col-sm-10">
-				  <input type="name" class="form-control" value="" name="name" id="inputEmail3" placeholder="用户名">
+				  <input type="text" class="form-control" value="<?= set_value('name')?>" name="name" id="inputEmail3" placeholder="用户名">
+				 <?php echo form_error('name')?>
 				</div>
 			  </div>
 			  <div class="form-group">
 				<label for="inputPassword3" class="col-sm-2 control-label">密码</label>
 				<div class="col-sm-10">
-				  <input type="password" class="form-control" name="password" id="inputPassword3" placeholder="密码">
+				  <input type="password" class="form-control" value="<?= set_value('password')?>" name="password" id="inputPassword3" placeholder="密码">
+					<?php echo form_error('password')?>
 				</div>
 			  </div>
 			  <div class="form-group">
@@ -53,7 +67,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url().'static/js/bootstrap.min.js'?>"></script>
 	<script>
 		/*!
  * IE10 viewport hack for Surface/desktop Windows 8 bug

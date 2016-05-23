@@ -38,7 +38,9 @@ class Reg extends CI_Controller {
 		
 		//验证方法
 		if($this->form_validation->run() == FALSE) {//验证失败
+			//forword
 			$this->load->view('admin/reg');
+			//redirect('admin/reg');
 		} else {//验证成功
 			$arr['name'] = $n;
 			$arr['pwd'] = $p;
@@ -46,7 +48,11 @@ class Reg extends CI_Controller {
 			$response = $this->person->add($arr);
 			if($response['code'] === 0) {
 				$loginUrl = site_url('/login/index');
-				header("location:".$loginUrl );
+				//header("location:".$loginUrl );
+				//通过 HTTP 头重定向到指定 URL 。
+				//你可以指定一个完整的 URL ，也可以指定一个 URL 段，
+				//该函数会根据配置文件自动生成改 URL 。
+				redirect($loginUrl);
 			} else {
 				$this->load->view('admin/reg', $response);
 			}	
