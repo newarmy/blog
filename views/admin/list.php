@@ -1,6 +1,7 @@
 
   
 		<div class="col-md-10 border-right">
+		<a href="<?php echo base_url().'index.php/article/index'?>" style="float:right;margin:10px 0 10px 20px;" class="btn btn-primary">添加文章</a>
 			<table class="table table-striped">
 		  <thead>
 			<tr>

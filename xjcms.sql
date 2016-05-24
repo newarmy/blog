@@ -34,9 +34,7 @@ CREATE TABLE IF NOT EXISTS article (
 	pkeyword varchar(20),
 	pdesc varchar(50),
 	ptitle varchar(20),
-	isstatic tinyint(1) DEFAULT 0,
 	filename varchar(10),
-	aurl varchar(30),
 	createtime int(20) NOT NULL,
 	createuser varchar(20) NOT NULL,
 	recommend tinyint(1) DEFAULT 0 /*1:推荐；0:不推荐*/
