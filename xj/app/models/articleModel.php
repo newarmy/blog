@@ -11,11 +11,11 @@ class ArticleModel extends CI_Model {
 		$this->db->insert('article', $data); 
 		if($this->db->affected_rows() == 1){
 			$res['code'] = 0;
-			$res['msg'] = "添加文件成功";
+			$res['msg'] = "添加文章成功";
 			return $res;
 		} else {
 			$res['code'] = 1;
-			$res['msg'] = "添加文件失败";
+			$res['msg'] = "添加文章失败";
 			return $res;
 		}
 	}
@@ -28,14 +28,12 @@ class ArticleModel extends CI_Model {
 		//exit;
 		return $row->count;
 	}
-	function searchUsers(){
-		
-		$size = 3;
-		
-		$total = $this._getTotal();
+	//列表页查询
+	function searchArticle($page, $size = 3){
+		$total = $this->_getTotal();
 		$pageCount = ceil($total/$size);
 		$offset = $size*($page - 1);
-		$sql1 = "select name, level, pwd FROM person LIMIT {$offset}, {$size}";
+		$sql1 = "select aid, aname, createtime FROM article ORDER BY aid DESC LIMIT {$offset}, {$size}";
 		$res1 = $this->db->query($sql1);
 		if( $res1->num_rows()>0){
 			return array('count' =>$pageCount,
@@ -44,35 +42,31 @@ class ArticleModel extends CI_Model {
 		}
 		return null;
 	}
-	function updateUser(){
-		$name = $_POST['name'];
-		$oldpwd = $_POST['oldpwd'];
-		$newpwd = $_POST['newpwd'];
-		if(empty($name)){
-			return 4;
+	//根据id查询文章
+	function searchById($id) {
+		$sql = "select * from article where aid = ".$id;
+		$res = $this->db->query($sql);
+		if($res->num_rows() == 1) {
+			return $res->row_array();
+		} else {
+			return null;
 		}
-		if(empty($oldpwd)){
-			return 5;
+	}
+	//更新文章
+	function updateArticle($data){
+		//$sql1 = "UPDATE article SET pwd ='".addslashes($newpwd)."' WHERE aid= '".$id."'";
+		$this->db->where('aid', $data['aid']);
+		$this->db->update('article', $data);
+		if($this->db->affected_rows() == 1){
+			$res['code'] = 0;
+			$res['msg'] = "更新文章成功";
+			return $res;
+		} else {
+			$res['code'] = 1;
+			$res['msg'] = "更新文章失败";
+			return $res;
 		}
-		if(empty($newpwd)){
-			return 6;
-		}
-		$sql = 'select pwd from person where name="'.addslashes($name).'"';
-		$r =  $this->db->query($sql);
-		if($r->num_rows() == 1){
-			$row =$r->row_array();
-			if($row['pwd'] == $oldpwd){
-				$sql1 = "UPDATE person SET pwd ='".addslashes($newpwd)."' WHERE name= '".addslashes($name)."'";
-				$this->db->query($sql1);
-				if($this->db->affected_rows() == 1){
-					return 3;
-				} else {
-					return 2;
-				}
-			} else {
-				return 1;
-			}
-		}
+			
 	}
     
     function register()
@@ -104,14 +98,17 @@ class ArticleModel extends CI_Model {
 		}
 	}
 	
-	function delete(){
-		$name = $_GET['name'];
-		$this->db->where('name', $name);
-		$this->db->delete('person'); 
+	function deleteArticle($id){
+		$this->db->where('aid', $id);
+		$this->db->delete('article'); 
 		if($this->db->affected_rows() == 1){
-			return 2;
+			$res['code'] = 0;
+			$res['msg'] = "删除文章成功";
+			return $res;
 		} else {
-			return 1;
+			$res['code'] = 1;
+			$res['msg'] = "更新文章失败";
+			return $res;
 		}
 	}
 }

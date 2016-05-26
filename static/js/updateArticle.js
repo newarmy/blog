@@ -1,4 +1,5 @@
 var initStr = '文章内容';
+var editContent = document.getElementById('cccc').value;
 //详情
 var contentEditor = UE.getEditor('content',{ 
 	toolbars: [['fullscreen', 'source', '|', 'undo', 'redo', '|',
@@ -11,5 +12,5 @@ var contentEditor = UE.getEditor('content',{
 	autoHeightEnabled:false
 });
 contentEditor.addListener( 'ready', function () {
-	
+	contentEditor.setContent(editContent);
 }); 
