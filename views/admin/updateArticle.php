@@ -32,11 +32,17 @@
 				  <div class="form-group">
 					<label for="tag">文章标签</label>
 					<select class="form-control" name="tag" id="tag">
-					  <option value="1" <?=($atag == 1) ? 'selected': ''?>>1</option>
-					  <option value="2" <?=($atag == 2) ? 'selected': ''?>>2</option>
-					  <option value="3" <?=($atag == 3) ? 'selected': ''?>>3</option>
-					  <option value="4" <?=($atag == 4) ? 'selected': ''?>>4</option>
-					  <option value="5" <?=($atag == 5) ? 'selected': ''?>>5</option>
+					  <?php 
+						$tagString = '';
+						foreach($tagList as $key => $value) {
+							if($atag == $value['tagid']) {
+								$tagString .= '<option value="'.$value['tagid'].'"  selected>'.$value['tagname'].'</option>';	
+							}else{
+							$tagString .= '<option value="'.$value['tagid'].'">'.$value['tagname'].'</option>';
+							}
+						}
+						echo $tagString;
+					 ?>
 					</select>
 					<?php echo form_error('tag')?>
 				  </div>

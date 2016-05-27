@@ -25,11 +25,13 @@ EOF;
 				  <div class="form-group">
 					<label for="tag">文章标签</label>
 					<select class="form-control" name="tag" id="tag">
-					  <option value="1">1</option>
-					  <option value="1">2</option>
-					  <option value="1">3</option>
-					  <option value="1">4</option>
-					  <option value="1">5</option>
+					 <?php 
+						$tagString = '';
+						foreach($tagList as $key => $value) {
+							$tagString .= '<option value="'.$value['tagid'].'">'.$value['tagname'].'</option>';
+						}
+						echo $tagString;
+					 ?>
 					</select>
 					<?php echo form_error('tag')?>
 				  </div>

@@ -49,7 +49,7 @@ class Manage extends CI_Controller {
 		$this->load->view('admin/list', $data);
 		$this->load->view('admin/footer');
 	}
-	public function manageTag()
+	public function manageTag($page = 1)
 	{
 		//读取session
 		$name = $this->session->userdata('user');
@@ -60,11 +60,22 @@ class Manage extends CI_Controller {
 			redirect($loginUrl);
 			exit;
 		}
+		$this->load->model('tagModel');
+		$tagRes = $this->tagModel->searchTags($page, 5);
 		$data['name'] = $name;
 		$data['nav'] = 2;
+		if(empty($tagRes)) {
+			$data['count'] = 0;
+			$data['page'] = 0;
+			$data['list'] = array();
+		} else {
+			$data['count'] = $tagRes['count'];
+			$data['page'] = $tagRes['page'];
+			$data['list'] = $tagRes['list'];
+		}
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/nav', $data);
-		$this->load->view('admin/list');
+		$this->load->view('admin/tagList', $data);
 		$this->load->view('admin/footer');
 	}
 	public function manageUser()

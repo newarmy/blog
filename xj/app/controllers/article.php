@@ -28,10 +28,13 @@ class Article extends CI_Controller {
 		}
 		$data['name'] = $this->name;
 		$data['nav'] = 1;
+		$this->load->model('tagModel');
+		$tagData = $this->tagModel->searchAll();
+		$data['tagList'] = $tagData;
 		$this->load->view('admin/header', $data);
 		//$this->load->view('admin/header');
 		$this->load->view('admin/nav', $data);
-		$this->load->view('admin/addArticle');
+		$this->load->view('admin/addArticle', $data);
 		$this->load->view('admin/footer');
 	}
 	/*
@@ -50,9 +53,9 @@ class Article extends CI_Controller {
     ->set_content_type('application/json')
     ->set_output(json_encode(array('foo' => 'bar')));*/
 		//允许你设置你的页面的 MIME 类型，可以很方便的提供 JSON 数据、JPEG、XML 等等格式。
-		//$this->output->set_content_type('application/json');
+		$this->output->set_content_type('application/json');
 		//允许你手工设置最终的输出字符串
-		//$this->output->set_output(json_encode($response));
+		$this->output->set_output(json_encode($response));
 	}
 	/*
 	* 到更新文章页
@@ -73,6 +76,9 @@ class Article extends CI_Controller {
 			redirect($loginUrl);
 			exit;
 		}
+		$this->load->model('tagModel');
+		$tagData = $this->tagModel->searchAll();
+		$data['tagList'] = $tagData;
 		$data['name'] = $this->name;
 		$data['nav'] = 1;
 		$data['data'] = $response;
@@ -132,7 +138,7 @@ class Article extends CI_Controller {
 			$this->load->view('admin/header', $data);
 			//$this->load->view('admin/header');
 			$this->load->view('admin/nav', $data);
-			$this->load->view('admin/addArticle');
+			$this->load->view('admin/updateArticle');
 			$this->load->view('admin/footer');
 		} else {
 			$arr['aname'] = $this->input->post('title');
@@ -164,10 +170,12 @@ class Article extends CI_Controller {
 			} else {
 				$data['name'] = $this->name;
 				$data['nav'] = 1;
+				$data['list'] = $arr;
+				$data['msg'] = $response['msg'];
 				$this->load->view('admin/header', $data);
 				//$this->load->view('admin/header');
 				$this->load->view('admin/nav', $data);
-				$this->load->view('admin/addArticle', $response);
+				$this->load->view('admin/addArticle', $data);
 				$this->load->view('admin/footer');
 			}
 		}
