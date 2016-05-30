@@ -55,20 +55,19 @@ class Person extends CI_Model {
 			return $res;
 		}
 	}
-	
-	function searchUsers(){
-		if(empty($_GET['page'])||$_GET['page']<0){ 
-			$page = 1; 
-		}else { 
-			$page=$_GET['page']; 
-		} 
-		$size = 3;
-		$sql = "select name, level, pwd FROM person WHERE 1";
+	function _getTotal() {
+		$sql = 'select count(*) as count from person';
 		$res = $this->db->query($sql);
-		$total = $res->num_rows();
-		$pageCount = ceil($total/$size);
-		$offset = $size*($page -1);
-		$sql1 = "select name, level, pwd FROM person LIMIT {$offset}, {$size}";
+		$row = $res->row();
+		//var_dump($res);
+		//exit;
+		return $row->count;
+	}
+	function searchUsers($page, $limit = 3){
+		$total = $this->_getTotal();
+		$pageCount = ceil($total/$limit);
+		$offset = $limit*($page -1);
+		$sql1 = "select pid, name, level, pwd FROM person LIMIT {$offset}, {$limit}";
 		$res1 = $this->db->query($sql1);
 		if( $res1->num_rows()>0){
 			return array('count' =>$pageCount,
@@ -136,34 +135,6 @@ class Person extends CI_Model {
 		}
 	}
     
-    function register()
-    {
-        $name = $_POST['name'];
-		$pwd = $_POST['pwd'];
-		if(empty($name)){
-			return 4;
-		}
-		if(empty($pwd)){
-			return 5;
-		}
-		$this->db->select('name');
-		$this->db->where('name',$name);
-		$query = $this->db->get('person');
-		if($query->num_rows() == 1){
-			return 1;
-		}
-		$data = array(
-               'name' => $name,
-               'pwd' => $pwd,
-               'level' => 1
-            );
-		$this->db->insert('person', $data); 
-		if($this->db->affected_rows() == 1){
-			return 3;
-		} else {
-			return 2;
-		}
-	}
 	
 	function delete(){
 		$name = $_GET['name'];

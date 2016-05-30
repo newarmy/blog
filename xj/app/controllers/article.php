@@ -131,34 +131,35 @@ class Article extends CI_Controller {
 			'required' => '当前页面title名称不能为空',
 			'max_length'=> '当前页面title名称不能大于20个字符'
 		));
-		
+		$arr['aname'] = $this->input->post('title');
+		$arr['acontent'] = $this->input->post('content');
+		$arr['aclassity'] = $this->input->post('classify');
+		$arr['atag'] = $this->input->post('tag');
+		$arr['pkeyword'] = $this->input->post('keywords');
+		$arr['pdesc'] = $this->input->post('desc');
+		$arr['ptitle'] = $this->input->post('pageTitle');
+		$arr['filename'] = $this->input->post('filename');
+		//$today = date("j, n, Y");//返回时间字符串，用逗号间隔
+		//$tArr = explode(',',$today);//使用一个字符串分割另一个字符串,返回数组
+		//int mktime ([ int $hour [, int $minute [, int $second [, int $month [, int $day [, int $year [, int $is_dst ]]]]]]] )
+		//$times = mktime(0,0,0,$tArr[1],$tArr[0],$tArr[2]);//取得一个日期的 Unix 时间戳
+	
+		$arr['createtime'] = time();//返回自从 Unix 纪元（格林威治时间 1970 年 1 月 1 日 00:00:00）到当前时间的秒数。 
+		//$name = $this->session->userdata('user');
+		$arr['createuser'] = $this->input->post('createuser');
+		$arr['aid'] = $this->input->post('aid');
+		$arr['recommend'] = $this->input->post('recommend');
 		if($this->form_validation->run() == false) {
 			$data['name'] = $this->name;
 			$data['nav'] = 1;
+			$data['list'] = $arr;
 			$this->load->view('admin/header', $data);
 			//$this->load->view('admin/header');
 			$this->load->view('admin/nav', $data);
 			$this->load->view('admin/updateArticle');
 			$this->load->view('admin/footer');
 		} else {
-			$arr['aname'] = $this->input->post('title');
-			$arr['acontent'] = $this->input->post('content');
-			$arr['aclassity'] = $this->input->post('classify');
-			$arr['atag'] = $this->input->post('tag');
-			$arr['pkeyword'] = $this->input->post('keywords');
-			$arr['pdesc'] = $this->input->post('desc');
-			$arr['ptitle'] = $this->input->post('pageTitle');
-			$arr['filename'] = $this->input->post('filename');
-			//$today = date("j, n, Y");//返回时间字符串，用逗号间隔
-			//$tArr = explode(',',$today);//使用一个字符串分割另一个字符串,返回数组
-			//int mktime ([ int $hour [, int $minute [, int $second [, int $month [, int $day [, int $year [, int $is_dst ]]]]]]] )
-			//$times = mktime(0,0,0,$tArr[1],$tArr[0],$tArr[2]);//取得一个日期的 Unix 时间戳
-		
-			$arr['createtime'] = time();//返回自从 Unix 纪元（格林威治时间 1970 年 1 月 1 日 00:00:00）到当前时间的秒数。 
-			//$name = $this->session->userdata('user');
-			$arr['createuser'] = $this->input->post('createuser');
-			$arr['aid'] = $this->input->post('aid');
-			$arr['recommend'] = $this->input->post('recommend');
+			
 			$response = $this->articleModel->updateArticle($arr);
 			if($response['code'] == 0) {
 				$manageUrl = site_url('/manage/index');

@@ -78,7 +78,7 @@ class Manage extends CI_Controller {
 		$this->load->view('admin/tagList', $data);
 		$this->load->view('admin/footer');
 	}
-	public function manageUser()
+	public function manageUser($page = 1)
 	{
 		//读取session
 		$name = $this->session->userdata('user');
@@ -88,15 +88,26 @@ class Manage extends CI_Controller {
 			//重定向这个URL
 			redirect($loginUrl);
 			exit;
+		}
+		$this->load->model('person');
+		$userRes = $this->person->searchUsers($page, 5);
+		if(empty($userRes)) {
+			$data['count'] = 0;
+			$data['page'] = 0;
+			$data['list'] = array();
+		} else {
+			$data['count'] = $userRes['count'];
+			$data['page'] = $userRes['page'];
+			$data['list'] = $userRes['list'];
 		}
 		$data['name'] = $name;
 		$data['nav'] = 4;
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/nav', $data);
-		$this->load->view('admin/list');
+		$this->load->view('admin/userList',$data['list']);
 		$this->load->view('admin/footer');
 	}
-	public function manageClassify()
+	public function manageClassify($page = 1)
 	{
 		//读取session
 		$name = $this->session->userdata('user');
@@ -107,11 +118,22 @@ class Manage extends CI_Controller {
 			redirect($loginUrl);
 			exit;
 		}
+		$this->load->model('classifyModel');
+		$classifyRes = $this->classifyModel->searchClassifys($page, 5);
+		if(empty($classifyRes)) {
+			$data['count'] = 0;
+			$data['page'] = 0;
+			$data['list'] = array();
+		} else {
+			$data['count'] = $classifyRes['count'];
+			$data['page'] = $classifyRes['page'];
+			$data['list'] = $classifyRes['list'];
+		}
 		$data['name'] = $name;
 		$data['nav'] = 3;
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/nav', $data);
-		$this->load->view('admin/list');
+		$this->load->view('admin/classifyList', $data);
 		$this->load->view('admin/footer');
 	}
 	

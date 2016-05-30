@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-//标签控制器
-class Tag extends CI_Controller {
+//分类控制器
+class Classify extends CI_Controller {
     private $name = null; 
-	private $updateList = null;
+	//public  static $updateList = null;
 	function __construct() {
 		parent::__construct();
 		$this->load->database();
@@ -12,7 +12,7 @@ class Tag extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('user_agent');
 		$this->load->library('session');
-		$this->load->model('tagModel');
+		$this->load->model('classifyModel');
 		//设置时区
 		date_default_timezone_set('PRC'); 
 		//读取session
@@ -29,11 +29,11 @@ class Tag extends CI_Controller {
 			exit;
 		}
 		$data['name'] = $this->name;
-		$data['nav'] = 2;
+		$data['nav'] = 3;
 		$this->load->view('admin/header', $data);
 		//$this->load->view('admin/header');
 		$this->load->view('admin/nav', $data);
-		$this->load->view('admin/addTag');
+		$this->load->view('admin/addClassify');
 		$this->load->view('admin/footer');
 	}
 	public function delete($id) {
@@ -44,7 +44,7 @@ class Tag extends CI_Controller {
 			redirect($loginUrl);
 			exit;
 		}
-		$response = $this->tagModel->deleteTag($id);
+		$response = $this->classifyModel->deleteClassify($id);
 		/*$this->output
     ->set_content_type('application/json')
     ->set_output(json_encode(array('foo' => 'bar')));*/
@@ -62,80 +62,92 @@ class Tag extends CI_Controller {
 			exit;
 		}
 		
-		$response = $this->tagModel->searchById($id);
+		$response = $this->classifyModel->searchById($id);
 		if(empty($response)) {
 			//获得一个完整的 URL
-			//$manageUrl = site_url('/manage/manageTag');
+			//$manageUrl = site_url('/manage/manageClassify');
 			//重定向这个URL
 			//redirect($manageUrl);
 			//exit;
 		}
-		$this->updateList = $response;
+		//$this->updateList = $response;
 		//var_dump($this->updateList);
 		$data['name'] = $this->name;
-		$data['nav'] = 2;
+		$data['nav'] = 3;
 		$data['list'] = $response;
 		$this->load->view('admin/header', $data);
 		//$this->load->view('admin/header');
 		$this->load->view('admin/nav', $data);
-		$this->load->view('admin/updateTag', $data);
+		$this->load->view('admin/updateClassify', $data);
 		$this->load->view('admin/footer');
 	}
 	/*
-	* 更新标签
+	* 更新分类
 	*/
 	public function update() {
 		$this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
-		$this->form_validation->set_rules('name', '标签名称',
+		$this->form_validation->set_rules('name', '分类名称',
 		'required|max_length[20]',
-		array('required'=> '标签名字不能为空',
-			'max_length'=> '标签名字不能大于20个字符'));
-		$arr['tagid'] = $this->input->post('tagid');
-		$arr['tagname'] = $this->input->post('name');
+		array('required'=> '分类名字不能为空',
+			'max_length'=> '分类名字不能大于20个字符'));
+		$this->form_validation->set_rules('directory', '分类路径',
+		'required|max_length[20]',
+		array(
+			'required'=> '分类路径不能为空',
+			'max_length'=> '分类路径不能大于20个字符'
+		));
+		$arr['cid'] = $this->input->post('cid');
+		$arr['cname'] = $this->input->post('name');
+		$arr['directory'] = $this->input->post('directory');
 		if($this->form_validation->run() == false) {
 			$data['name'] = $this->name;
-			$data['nav'] = 2;
+			$data['nav'] = 3;
 			$data['list'] = $arr;
 			$this->load->view('admin/header', $data);
 			//$this->load->view('admin/header');
 			$this->load->view('admin/nav', $data);
-			$this->load->view('admin/updateTag', $data);
+			$this->load->view('admin/updateClassify', $data);
 			$this->load->view('admin/footer');
 		} else {
-			$response = $this->tagModel->updateTag($arr);
+			$response = $this->classifyModel->updateClassify($arr);
 			if($response['code'] == 0) {
-				//$manageUrl = site_url('/manage/manageTag');
+				$manageUrl = site_url('/manage/manageClassify');
 				//header("location:".$loginUrl );
 				//通过 HTTP 头重定向到指定 URL 。
 				//你可以指定一个完整的 URL ，也可以指定一个 URL 段，
 				//该函数会根据配置文件自动生成改 URL 。
-				//redirect($manageUrl);
-				redirect($this->agent->referrer());
+				redirect($manageUrl);
+				//redirect($this->agent->referrer());
 			} else {
 				$data['name'] = $this->name;
-				$data['nav'] = 2;
+				$data['nav'] = 3;
 				$data['list'] = $arr;
 				//var_dump($this->updateList);
 				$data['msg'] = $response['msg'];
 				$this->load->view('admin/header', $data);
 				$this->load->view('admin/nav', $data);
-				$this->load->view('admin/updateTag', $data);
+				$this->load->view('admin/updateClassify', $data);
 				$this->load->view('admin/footer');
 			}
 		}
 	}
 	/*
-	* 添加标签
+	* 添加分类
 	*/
 	public function add() {
 		$this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
-		$this->form_validation->set_rules('name', '标签名字',
+		$this->form_validation->set_rules('name', '分类名字',
 		'required|max_length[20]',
 		array(
-			'required'=> '标签名字不能为空',
-			'max_length'=> '标签名字不能大于20个字符'
+			'required'=> '分类名字不能为空',
+			'max_length'=> '分类名字不能大于20个字符'
 		));
-		
+		$this->form_validation->set_rules('directory', '分类路径',
+		'required|max_length[20]',
+		array(
+			'required'=> '分类路径不能为空',
+			'max_length'=> '分类路径不能大于20个字符'
+		));
 		
 		if($this->form_validation->run() == false) {
 			$data['name'] = $this->name;
@@ -143,13 +155,14 @@ class Tag extends CI_Controller {
 			$this->load->view('admin/header', $data);
 			//$this->load->view('admin/header');
 			$this->load->view('admin/nav', $data);
-			$this->load->view('admin/addTag');
+			$this->load->view('admin/addClassify');
 			$this->load->view('admin/footer');
 		} else {
-			$arr['tagname'] = $this->input->post('name');
-			$response = $this->tagModel->add($arr);
+			$arr['cname'] = $this->input->post('name');
+			$arr['directory'] = $this->input->post('directory');
+			$response = $this->classifyModel->add($arr);
 			if($response['code'] == 0) {
-				$manageUrl = site_url('/manage/manageTag');
+				$manageUrl = site_url('/manage/manageClassify');
 				//header("location:".$loginUrl );
 				//通过 HTTP 头重定向到指定 URL 。
 				//你可以指定一个完整的 URL ，也可以指定一个 URL 段，
@@ -160,7 +173,7 @@ class Tag extends CI_Controller {
 				$data['nav'] = 2;
 				$this->load->view('admin/header', $data);
 				$this->load->view('admin/nav', $data);
-				$this->load->view('admin/addTag', $response);
+				$this->load->view('admin/addClassify', $response);
 				$this->load->view('admin/footer');
 			}
 		}
