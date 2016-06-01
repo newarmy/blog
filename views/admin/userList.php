@@ -1,7 +1,7 @@
 
   
 		<div class="col-md-10 border-right">
-		<a href="<?php echo base_url().'index.php/user/index'?>" style="float:right;margin:10px 0 10px 20px;" class="btn btn-primary">添加分类</a>
+		<a href="<?php echo base_url().'index.php/reg/toAdd'?>" style="float:right;margin:10px 0 10px 20px;" class="btn btn-primary">添加用户</a>
 			<table class="table table-striped">
 		  <thead>
 			<tr>
@@ -18,8 +18,8 @@
 			   $id = $row["pid"];
 			   $n = $row["name"];
 			   $level = $row['level'];
-			   $updateUrl = site_url("user/toUpdate/".$id);
-			   $removeUrl = site_url('user/delete/'.$id);
+			   $updateUrl = site_url("reg/toUpdate/".$id);
+			   $removeUrl = site_url('reg/delete/'.$id);
 			echo <<<EOF
 			<tr id="{$id}">
 				  <th scope="row">{$index}</th>
@@ -44,9 +44,9 @@ EOF;
 				for($i = 1; $i <= $count; $i++) {
 					//active 
 					if($i == $page) {
-						$pageStr.= '<li><a class="active" href="'.base_url().'index.php/manage/manageClassify/'.$i.'">'.$i.'</a></li>';
+						$pageStr.= '<li><a class="active" href="'.base_url().'index.php/manage/manageUser/'.$i.'">'.$i.'</a></li>';
 					} else {
-						$pageStr.= '<li><a  href="'.base_url().'index.php/manage/manageClassify/'.$i.'">'.$i.'</a></li>';
+						$pageStr.= '<li><a  href="'.base_url().'index.php/manage/manageUser/'.$i.'">'.$i.'</a></li>';
 					}
 				}
 				$pageStr .= '</ul></nav>';
@@ -55,18 +55,18 @@ EOF;
 					for($i = $page -4; $i <= $count; $i++) {
 						//active 
 						if($i == $page) {
-							$pageStr.= '<li><a class="active" href="'.base_url().'index.php/manage/manageClassify/'.$i.'">'.$i.'</a></li>';
+							$pageStr.= '<li><a class="active" href="'.base_url().'index.php/manage/manageUser/'.$i.'">'.$i.'</a></li>';
 						} else {
-							$pageStr.= '<li><a  href="'.base_url().'index.php/manage/manageClassify/'.$i.'">'.$i.'</a></li>';
+							$pageStr.= '<li><a  href="'.base_url().'index.php/manage/manageUser/'.$i.'">'.$i.'</a></li>';
 						}
 					}
 				} else {
 					for($i = $page -3; $i <= $page+1; $i++) {
 						//active 
 						if($i == $page) {
-							$pageStr.= '<li><a class="active" href="'.base_url().'index.php/manage/manageClassify/'.$i.'">'.$i.'</a></li>';
+							$pageStr.= '<li><a class="active" href="'.base_url().'index.php/manage/manageUser/'.$i.'">'.$i.'</a></li>';
 						} else {
-							$pageStr.= '<li><a href="'.base_url().'index.php/manage/manageClassify/'.$i.'">'.$i.'</a></li>';
+							$pageStr.= '<li><a href="'.base_url().'index.php/manage/manageUser/'.$i.'">'.$i.'</a></li>';
 						}
 					}
 				}
@@ -108,7 +108,7 @@ EOF;
 				return;
 			}
 			e.preventDefault();
-			var flag = window.confirm('您确定删除该文章吗？');
+			var flag = window.confirm('您确定删除该用户吗？');
 			if(flag) {
 				var url = t.href;
 				request(url, t);

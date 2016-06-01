@@ -76,74 +76,42 @@ class Person extends CI_Model {
 		}
 		return null;
 	}
-	function createUser(){
-		$name = $_POST['name'];
-		$pwd = $_POST['pwd'];
-		$level = $_POST['level'];
-		if(empty($name)){
-			return 4;
+	function searchById($id) {
+		$this->db->where('pid', $id);
+		$res = $this->db->from('person')->get();
+		if($res->num_rows() == 1) {
+			return $res->row_array();
+		} else {
+			return null;
 		}
-		if(empty($pwd)){
-			return 5;
-		}
-		$this->db->select('name');
-		$this->db->where('name',$name);
-		$query = $this->db->get('person');
-		if($query->num_rows() == 1){
-			return 1;
-		}
-		$data = array(
-               'name' => $name,
-               'pwd' => $pwd,
-               'level' => $level
-            );
-		$this->db->insert('person', $data); 
-		if($this->db->affected_rows() == 1){
-					return 3;
-				} else {
-					return 2;
-				}
 	}
-	function updateUser(){
-		$name = $_POST['name'];
-		$oldpwd = $_POST['oldpwd'];
-		$newpwd = $_POST['newpwd'];
-		if(empty($name)){
-			return 4;
+	function updateUser($d){
+		$sql1 = "UPDATE person SET pwd ='".$d['pwd']."', name ='".$d['name']."', level ='".$d['level']."'  WHERE pid= '".$d['pid']."'";
+		$this->db->query($sql1);
+		if($this->db->affected_rows() == 1){
+			$res['code'] = 0;
+			$res['msg'] = "更新用户成功";
+			return $res;
+		} else {
+			$res['code'] = 1;
+			$res['msg'] = "更新用户失败";
+			return $res;
 		}
-		if(empty($oldpwd)){
-			return 5;
-		}
-		if(empty($newpwd)){
-			return 6;
-		}
-		$sql = 'select pwd from person where name="'.addslashes($name).'"';
-		$r =  $this->db->query($sql);
-		if($r->num_rows() == 1){
-			$row =$r->row_array();
-			if($row['pwd'] == $oldpwd){
-				$sql1 = "UPDATE person SET pwd ='".addslashes($newpwd)."' WHERE name= '".addslashes($name)."'";
-				$this->db->query($sql1);
-				if($this->db->affected_rows() == 1){
-					return 3;
-				} else {
-					return 2;
-				}
-			} else {
-				return 1;
-			}
-		}
+			
 	}
     
 	
-	function delete(){
-		$name = $_GET['name'];
-		$this->db->where('name', $name);
+	function delete($id){
+		$this->db->where('pid', $id);
 		$this->db->delete('person'); 
 		if($this->db->affected_rows() == 1){
-			return 2;
+			$res['code'] = 0;
+			$res['msg'] = "删除用户成功";
+			return $res;
 		} else {
-			return 1;
+			$res['code'] = 1;
+			$res['msg'] = "更新用户失败";
+			return $res;
 		}
 	}
 }

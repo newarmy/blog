@@ -1,0 +1,33 @@
+		<?php 
+		if(!empty($response)){
+			$msg = $response['msg'];
+			$string =<<<EOF
+			<div style="color:#f00"> {$msg}</div>
+EOF;
+			echo $string;
+		}
+	?>
+			<div class="col-md-10 border-right padding-top">
+				 <?php
+				//$attributes = array('class'=> 'form-horizontal');
+				echo form_open('reg/add');
+			  ?>
+				  <div class="form-group">
+					<label for="title">用户名字</label>
+					<input type="text" name="name" class="form-control" id="name" placeholder="用户名字">
+					<?php echo form_error('name')?>
+				  </div>
+				  <input type="hidden" name="password" value="111111" />
+				  <div class="form-group">
+					<label for="title">用户级别</label>
+					<select name="level">
+						<option value="3">3</option>
+						<option value="2">2</option>
+						<option value="1">1</option>
+					</select>
+					<?php echo form_error('level')?>
+				  </div>
+				  <button type="submit" class="btn btn-default form-submit">创建分类</button>
+				</form>
+			</div>
+		</div>

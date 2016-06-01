@@ -34,7 +34,7 @@ class Login extends CI_Controller {
 		);
 		//checking
 		if($this->form_validation->run() == false) {//fail
-			echo 'here';
+			//echo 'here';
 			$this->load->view('admin/login');
 		} else {
 			$arr['name'] = $n;
@@ -48,7 +48,7 @@ class Login extends CI_Controller {
 				$manageUrl = site_url('manage/index');
 				redirect($manageUrl);
 			} else {
-				echo 'here 2';
+				//echo 'here 2';
 				$this->load->view('admin/login', $response);
 			}
 		}
